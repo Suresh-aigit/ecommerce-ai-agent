@@ -1,0 +1,11 @@
+ai-shopify-agents/          <-- THIS IS YOUR PROJECT FOLDER
+├── app.py                  <-- Your main code (save the uploaded file here)
+├── requirements.txt
+├── Dockerfile
+├── .streamlit/
+│   └── config.toml
+├── backend/
+│   └── agents/
+│       ├── __init__.py
+│       └── shopify_auth.py
+└── .gitignore
