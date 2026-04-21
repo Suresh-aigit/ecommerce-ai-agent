@@ -650,7 +650,7 @@ elif agent_menu == "🚚 Shipping & Logistics":
                 with col1:
                     st.write(f"**{order['name']}**")
                     customer = order.get('customer', {})
-                    st.caption(f"Customer: {customer.get('email', 'Guest')}")
+                    st.caption(f"Customer: {customer.get('email', 'Guest') if customer else 'Guest'}")
                 
                 with col2:
                     items = order.get('line_items', [])
