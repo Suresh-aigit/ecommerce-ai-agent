@@ -1,3 +1,51 @@
+import streamlit as st
+import streamlit_authenticator as stauth
+from streamlit_authenticator.utilities.hasher import Hasher
+
+# ========== LOGIN SYSTEM ==========
+
+# User credentials
+names = ["Admin User", "Suresh"]
+usernames = ["admin", "suresh"]
+passwords = ["admin123", "password"]
+
+# Hash passwords
+hashed_passwords = Hasher(passwords).generate()
+
+# Create credentials dictionary
+credentials = {
+    "usernames": {
+        username: {
+            "name": name,
+            "password": hashed_password,
+            "email": f"{username}@example.com"
+        }
+        for username, name, hashed_password in zip(usernames, names, hashed_passwords)
+    }
+}
+
+# Create authenticator
+authenticator = stauth.Authenticate(
+    credentials=credentials,
+    cookie_name="ecommerce_cookie",
+    key="abcdef",
+    cookie_expiry_days=30
+)
+
+# Login widget
+authenticator.login()
+
+if st.session_state["authentication_status"] == False:
+    st.error("❌ Username/password is incorrect")
+elif st.session_state["authentication_status"] == None:
+    st.warning("🔐 Please enter your username and password")
+elif st.session_state["authentication_status"] == True:
+    # ✅ SUCCESS - Show dashboard
+    authenticator.logout("Logout", "sidebar")
+    st.success(f"Welcome *{st.session_state['name']}*")
+    
+    # ========== YOUR DASHBOARD CODE HERE ==========
+    # (Keep all your existing dashboard code below this line)
 """
 AI Agents Control Center for Shopify
 Final Version - 8 Agents Active
